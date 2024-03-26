@@ -1,0 +1,34 @@
+= SVG keyboard
+A proposal for a file format that represents a physical keyboard, together with its key bindings.
+
+== Scope
+The file format should permit to represent a physical keyboard, meaning, the location and size of its keys, the signal that each key press sends to the operating system, and should permit to automatically draw (dynamically) the key bindings that are associated with each (combination of) key.
+
+It should leverage as much as possible existing standards.
+
+One goal is to reproduce a functionality that used to be included in Gnome, that displayed the key bindings on screen on top of the keyboard layout.
+
+== Vocabulary
+The terms “X key name” are defined https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[here].
+
+== Proposal
+Any SVG file is a SVG keyboard file. The intent is to allow complex features of this powerful language to be used to represent a keyboard by any means that the designer deems useful. In such a way, complex keyboards can be represented, with different key sizes, colors, and shapes, without creating new complex file formats.
+
+This proposal introduces the SVG attribute `kdd:x-key-name`, where `kdd` stands for “keyboard drawer” and is associated to the namespace `https://io.github.oliviercailloux.keyboardd` (though I’ll happily transfer this to any organization willing to maintain this format before this proposal is released). The value of the attribute is an “https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/blob/master/keycodes/evdev[X key name]” (a string such as `AC12`) that determines the signal that the key sends to the operating system.
+
+This attribute must be associated to the SVG `rect` element. It describes a “zone” where the key bindings should be drawn. The zone is a rectangle to make it easy to systematically cut the zone into sub-zones when multiple key bindings are associated with the same key.
+
+[NOTE]
+Note that the keys may be drawn non rectangle, though the zone where the key bindings are drawn is always a rectangle. In simple cases, the rectangle is used both to define the zone and to draw the key. But more complex cases are permitted. For example, the rectangle may be invisible and be defined as a part of the complex shape of a given key. This then determines the part of the shape where key binding are supposed to be drawn.
+
+== Uses
+The intent of this proposal is to allow users to design SVG files that represent keyboard layouts; and library developers to create tools that automatically draw the key bindings on top of the keyboard layout. The library would read the SVG file, extract the `kdd:x-key-name` attributes, and draw the key bindings in the relevant zones.
+
+This could be used to represent the association between keyboard physical keys and Wayland (as defined in https://github.com/xkbcommon/libxkbcommon/blob/master/doc/introduction-to-xkb.md[keymap] files); or Emacs shortcuts; or any other key bindings.
+
+== Evolution
+New key signals are introduced from times to times in the Linux kernel, and the X key names are updated accordingly. The file format described in this proposal updates automatically to such changes, as the legal values of the attribute `kdd:x-key-name` are all X key names. It is thus to be considered as a living file format (this idea is inspired from https://whatwg.org/[WHATWG]’s policy of continuously updated standard).
+
+== Status
+This proposal is a draft. Please do not consider it stable for any purpose.
+
