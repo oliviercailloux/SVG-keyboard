@@ -9,7 +9,7 @@ It should leverage as much as possible existing standards.
 One goal is to reproduce a functionality that used to be included in Gnome, that displayed the key bindings on screen on top of the keyboard layout.
 
 == Vocabulary
-The terms “X key name” are defined https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[here].
+The terms “X key name” and “keymap” as used in this document are defined https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[here].
 
 == Proposal
 Any SVG file is a SVG keyboard file. The intent is to allow complex features of this powerful language to be used to represent a keyboard by any means that the designer deems useful. In such a way, complex keyboards can be represented, with different key sizes, colors, and shapes, without creating new complex file formats.
@@ -32,3 +32,5 @@ New key signals are introduced from times to times in the Linux kernel, and the 
 == Status
 This proposal is a draft. Please do not consider it stable for any purpose.
 
+== Extension
+The current proposal cannot represent “meta-modifier” keys (as called on the https://en.wikipedia.org/wiki/Fn_key#Technical_details[Wikipedia `Fn` page]) that change the signal that keys send when pressed simultaneously with them. I believe that reaching a full level of generality (involving possibly several meta-modifier keys) would require a much more complex file format. Most commonly, keyboards have zero or one such meta-modifier key. The single meta-modifier key case may be handled by using two SVG keyboard files, representing respectively the signals sent while not pressing, and while pressing, the meta-modifier key.
