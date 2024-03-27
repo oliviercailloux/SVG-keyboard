@@ -6,7 +6,7 @@ The file format should permit to represent a physical keyboard, meaning, the loc
 
 It should leverage as much as possible existing standards.
 
-One goal is to reproduce a functionality that used to be included in Gnome, that displayed the key bindings on screen on top of the keyboard layout.
+One goal is to improve the key bindings display that https://unix.stackexchange.com/a/368089/[used to be], or https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/191[is being], included in Gnome.
 
 == Vocabulary
 The terms “X key name” and “keymap” as used in this document are defined https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[here].
