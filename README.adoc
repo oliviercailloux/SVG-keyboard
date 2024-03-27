@@ -14,7 +14,7 @@ The terms “X key name” and “keymap” as used in this document are defined
 == Proposal
 Any SVG file is a SVG keyboard file. The intent is to allow complex features of this powerful language to be used to represent a keyboard by any means that the designer deems useful. In such a way, complex keyboards can be represented, with different key sizes, colors, and shapes, without creating new complex file formats.
 
-This proposal introduces the SVG attribute `kdd:x-key-name`, where `kdd` stands for “keyboard drawer” and is associated to the namespace `https://io.github.oliviercailloux.keyboardd` (though I’ll happily transfer this to any organization willing to maintain this format before this proposal is released). The value of the attribute is an “https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/blob/master/keycodes/evdev[X key name]” (a string such as `AC12`) that determines the signal that the key sends to the operating system.
+This proposal introduces the SVG attribute `kdd:x-key-name`, where `kdd` stands for “keyboard drawer” and is associated to the namespace `https://io.github.oliviercailloux.keyboardd` (though I’ll happily transfer this to any organization willing to maintain this format before this proposal is released). The value of the attribute is an “link:https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/blob/master/keycodes/evdev[X key name]” (a string such as `AC12`) that determines the signal that the key sends to the operating system.
 
 This attribute must be associated to the SVG `rect` element. It describes a “zone” where the key bindings should be drawn. The zone is a rectangle to make it easy to systematically cut the zone into sub-zones when multiple key bindings are associated with the same key.
 
