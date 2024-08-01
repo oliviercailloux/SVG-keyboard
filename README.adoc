@@ -1,4 +1,5 @@
 = SVG keyboard
+
 A proposal for a file format that represents a physical keyboard, together with its key bindings.
 
 == Scope
