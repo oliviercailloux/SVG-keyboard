@@ -20,6 +20,9 @@ This attribute must be associated to the SVG `rect` element. It describes a “k
 [NOTE]
 X key names are used here as a simple human-readable way to identify the signal that the key sends on the wire. This proposal is nevertheless not tied to X systems: it can be used to represent any keyboard, provided that it sends known signals to the operating system (whatever the operating system, including Windows, macOS or Linux).
 
+[NOTE]
+The X key name should identify the signal that the key sends when pressed alone, without any link:<<Limitations>>[meta-modifier] key, if any.
+
 == Uses
 The intent of this proposal is to allow users to design SVG files that represent keyboard layouts; and software developers to automatically draw the key bindings on top of the keyboard layout. The software would read the SVG file, extract the `kdd:x-key-name` attributes, and draw the key bindings in the relevant zones.
 
@@ -43,7 +46,7 @@ The signals would perhaps be better described using a standard that is not tight
 This proposal is a draft. Please do not consider it stable for any purpose.
 
 == Limitations
-The current proposal cannot (elegantly) represent “meta-modifier” keys (as called on the https://en.wikipedia.org/wiki/Fn_key#Technical_details[Wikipedia `Fn` page]) that change the signal that keys send when pressed simultaneously with them. I believe that reaching a full level of generality (involving possibly several meta-modifier keys) would require a much more complex file format. Most commonly, keyboards have zero or one such meta-modifier key. The single meta-modifier key case may be handled by using two SVG keyboard files, representing respectively the signals sent while not pressing, and while pressing, the meta-modifier key.
+The current proposal cannot (elegantly) represent “meta-modifier” keys (as called on the https://en.wikipedia.org/wiki/Fn_key#Technical_details[Wikipedia `Fn` page]) that change the signal that keys send when pressed simultaneously with them. I believe that reaching a full level of generality (involving possibly several meta-modifier keys) would require a much more complex file format. Most commonly, keyboards have zero or one such meta-modifier key. The single meta-modifier key case may be handled by using two SVG keyboard files, representing respectively the signals sent while not pressing, and while pressing, the meta-modifier key. Such meta-modifier keys also sometimes activate different behavior altogether, such as changing the backlight of the keyboard or enabling bluetooth. This is out of scope for this proposal.
 
 The current proposal does not embed a standard way of distinguishing keys that produce the same signal (let’s call these “duplicate”). I expect this to be rare (but I am no expert), considering that, for example, Left-Ctrl and Right-Ctrl send different signals. Such duplicate keys can be represented in an SVG keyboard file but will end up with the same representation. This might be desirable as the OS cannot distinguish them anyway. Otherwise, it is of course possible to add attributes to distinguish them, only they are not standardized in this proposal.
 
