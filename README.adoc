@@ -21,7 +21,7 @@ This attribute must be associated to the SVG `rect` element. It describes a “k
 X key names are used here as a simple human-readable way to identify the signal that the key sends on the wire. This proposal is nevertheless not tied to X systems: it can be used to represent any keyboard, provided that it sends known signals to the operating system (whatever the operating system, including Windows, macOS or Linux).
 
 == Uses
-The intent of this proposal is to allow users to design SVG files that represent keyboard layouts; and library developers to create tools that automatically draw the key bindings on top of the keyboard layout. The library would read the SVG file, extract the `kdd:x-key-name` attributes, and draw the key bindings in the relevant zones.
+The intent of this proposal is to allow users to design SVG files that represent keyboard layouts; and software developers to automatically draw the key bindings on top of the keyboard layout. The software would read the SVG file, extract the `kdd:x-key-name` attributes, and draw the key bindings in the relevant zones.
 
 The intent is to allow complex features of the powerful SVG language to be used to represent a keyboard by any means that the designer deems useful. In such a way, complex keyboards can be represented, with different key sizes, colors, and shapes, with no need of complex file formats.
 
@@ -35,7 +35,7 @@ In simple cases, the rectangle is used both to define the zone and to draw the k
 == Evolution
 New key signals are introduced from times to times in the Linux kernel, and the X key names are updated accordingly. The file format described in this proposal updates automatically to such changes, as the legal values of the attribute `kdd:x-key-name` are all X key names. It is thus to be considered as a living file format (this idea is inspired from https://whatwg.org/[WHATWG]’s policy of continuously updated standard).
 
-The namespace associated to the SVG attribute used here should belong to an organization willing to maintain this format (and, probably, be renamed accordingly). I’ll happily transfer ownership before this proposal is released!
+The namespace associated to the SVG attribute used here should belong to an organization willing to maintain this format (and, probably, be renamed accordingly). I’ll happily transfer ownership.
 
 The signals would perhaps be better described using a standard that is not tightly related to X. Perhaps something coming from the USB specification. I need help from USB experts.
 
