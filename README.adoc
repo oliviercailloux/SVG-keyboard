@@ -21,7 +21,7 @@ This attribute must be associated to the SVG `rect` element. It describes a “k
 X key names are used here as a simple human-readable way to identify the signal that the key sends on the wire. This proposal is nevertheless not tied to X systems: it can be used to represent any keyboard, provided that it sends known signals to the operating system (whatever the operating system, including Windows, macOS or Linux).
 
 [NOTE]
-The X key name should identify the signal that the key sends when pressed alone, without any link:Limitations[meta-modifier] key, if any.
+The X key name should identify the signal that the key sends when pressed alone, without any <<Limitations, meta-modifier>> key, if any. See  for more details.
 
 == Uses
 The intent of this proposal is to allow users to design SVG files that represent keyboard layouts; and software developers to automatically draw the key bindings on top of the keyboard layout. The software would read the SVG file, extract the `kdd:x-key-name` attributes, and draw the key bindings in the relevant zones.
