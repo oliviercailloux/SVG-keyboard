@@ -19,6 +19,7 @@ This attribute must be associated to the SVG `rect` element. It describes a “k
 
 [NOTE]
 X key names are used here as a simple human-readable way to identify the signal that the key sends on the wire. This proposal is nevertheless not tied to X systems: it can be used to represent any keyboard, provided that it sends known signals to the operating system (whatever the operating system, including Windows, macOS or Linux).
+We could consider using the https://docs.qmk.fm/keycodes_basic[QMK key names] instead.
 
 [NOTE]
 The X key name should identify the signal that the key sends when pressed alone, without any <<Limitations, meta-modifier>> key, if any. See  for more details.
