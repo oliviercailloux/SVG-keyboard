@@ -2,13 +2,15 @@
 
 A proposal for a file format that represents a physical keyboard, together with its key bindings.
 
-== Scope
+== Goals
 The file format should permit to represent a physical keyboard, meaning, the location and size of its keys, and the signal that each key press sends to the operating system. 
 
 It should leverage as much as possible existing standards.
 
 The file format should permit to draw automatically the key bindings that are associated with each (combination of) key.
-One goal is to help improve the key bindings display that https://unix.stackexchange.com/a/368089/[used to be], or https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/191[is being], included in Gnome.
+One goal is to help improve the key bindings display that https://unix.stackexchange.com/a/368089/[used to be], or https://gitlab.gnome.org/GNOME/tecla[is], included in Gnome.
+
+The file encoding of the behavior of the keyboard is limited to what the operating system sees. It is not a goal to represent the internal electronics of the keyboard, such as how “https://en.wikipedia.org/wiki/Fn_key#Technical_details[meta-modifier]” keys change the signals that other keys send to the operating system.
 
 == Proposal
 Any SVG file is a SVG keyboard file.
@@ -18,33 +20,32 @@ This proposal introduces the SVG attribute `kdd:x-key-name`, where `kdd` stands 
 This attribute must be associated to the SVG `rect` element. It describes a “key bindings zone” where the key bindings should be drawn. 
 
 [NOTE]
-X key names are used here as a simple human-readable way to identify the signal that the key sends on the wire. This proposal is nevertheless not tied to X systems: it can be used to represent any keyboard, provided that it sends known signals to the operating system (whatever the operating system, including Windows, macOS or Linux).
-We could consider using the https://docs.qmk.fm/keycodes_basic[QMK key names] instead.
+X key names are used here as a simple human-readable way to identify the signal that the key sends on the wire. This proposal is nevertheless not tied to X systems: the proposed file format can be used to represent any keyboard, provided that it sends known signals to the operating system (whatever the operating system, including Windows, macOS or Linux).
 
 [NOTE]
-The X key name should identify the signal that the key sends when pressed alone, without any <<Limitations, meta-modifier>> key, if any. See  for more details.
+The X key name should identify the signal that the key sends when pressed alone, without any <<Limitations, meta-modifier>> key, if any.
 
 == Uses
 The intent of this proposal is to allow users to design SVG files that represent keyboard layouts; and software developers to automatically draw the key bindings on top of the keyboard layout. The software would read the SVG file, extract the `kdd:x-key-name` attributes, and draw the key bindings in the relevant zones.
 
-The intent is to allow complex features of the powerful SVG language to be used to represent a keyboard by any means that the designer deems useful. In such a way, complex keyboards can be represented, with different key sizes, colors, and shapes, with no need of complex file formats.
+The intent is to allow powerful features of the SVG language to be used to represent a keyboard by any means that the designer deems useful. In such a way, complex keyboards can be represented, with different key sizes, colors, and shapes, with no need of new complex file formats.
 
-This could be used to represent the association between keyboard physical keys and Wayland (as defined in https://github.com/xkbcommon/libxkbcommon/blob/master/doc/introduction-to-xkb.md[keymap] files); or Emacs shortcuts; or any other key bindings.
+This can be used to represent the association between keyboard physical keys and Wayland (as defined in https://github.com/xkbcommon/libxkbcommon/blob/master/doc/introduction-to-xkb.md[keymap] files); or Emacs shortcuts; or any other key bindings.
 
 [NOTE]
 The keys may be drawn non rectangle, though the zone where the key bindings are drawn is always a rectangle. 
 The zone is a rectangle to make it easy to systematically cut the zone into sub-zones when multiple key bindings are associated with the same key.
 In simple cases, the rectangle is used both to define the zone and to draw the key. But more complex cases are permitted. For example, the rectangle may be invisible and be defined as a part of the complex shape of a given key. This then determines the part of the shape where key binding are supposed to be drawn.
+See examples <<Related, below>>.
 
-== Evolution
+== Evolution and ideas
+This proposal is a draft. Please do not consider it stable for any purpose.
+
 New key signals are introduced from times to times in the Linux kernel, and the X key names are updated accordingly. The file format described in this proposal updates automatically to such changes, as the legal values of the attribute `kdd:x-key-name` are all X key names. It is thus to be considered as a living file format (this idea is inspired from https://whatwg.org/[WHATWG]’s policy of continuously updated standard).
 
 The namespace associated to the SVG attribute used here should belong to an organization willing to maintain this format (and, probably, be renamed accordingly). I’ll happily transfer ownership.
 
-The signals would perhaps be better described using a standard that is not tightly related to X. Perhaps something coming from the USB specification. I need help from USB experts.
-
-== Status
-This proposal is a draft. Please do not consider it stable for any purpose.
+The signals would perhaps be better described using a standard that is not tightly related to X, to make it clear that it is not specific to Unix related systems. We could consider using the https://docs.qmk.fm/keycodes_basic[QMK key names] instead of X key names. But I think they are much less https://docs.rs/qmk-via-api/latest/qmk_via_api/keycodes/enum.Keycode.html[numerous]. Perhaps something coming from the USB specification. For this I need help from USB experts.
 
 == Limitations
 The current proposal cannot (elegantly) represent “meta-modifier” keys (as called on the https://en.wikipedia.org/wiki/Fn_key#Technical_details[Wikipedia `Fn` page]) that change the signal that keys send when pressed simultaneously with them. I believe that reaching a full level of generality (involving possibly several meta-modifier keys) would require a much more complex file format. Most commonly, keyboards have zero or one such meta-modifier key. The single meta-modifier key case may be handled by using two SVG keyboard files, representing respectively the signals sent while not pressing, and while pressing, the meta-modifier key. Such meta-modifier keys also sometimes activate different behavior altogether, such as changing the backlight of the keyboard or enabling bluetooth. This is out of scope for this proposal.
@@ -54,9 +55,10 @@ The current proposal does not embed a standard way of distinguishing keys that p
 We could define a standard attribute like “key-id” to identify keys that do not send anything, such as the `Fn` key, and to distinguish keys with identical X key name. This is however considered out of scope for this proposal.
 It is however possible to represent keys such as an `Fn` key in a keyboard: manually represent whatever you want in the SVG for that key. It will not change according to the keyboard mapping, and it should not, as it does not send anything.
 
-This proposal defines no particular way of storing the key caps. This can be done by using a https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[keymap] that associates X key names to key caps.
+This proposal defines no standard for writing the key caps in the file. This can be done by using a https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[keymap] that associates X key names to key caps.
 
 == Related
 - Here are some example https://github.com/oliviercailloux/mykbd/tree/main/src/test/resources/io/github/oliviercailloux/mykbd[SVG keyboard files].
 - Doc about https://github.com/oliviercailloux/XKB-doc/blob/main/README.adoc[XKB].
 - A https://github.com/oliviercailloux/Keyboardd/[Java library] that helps creating and dealing with SVG keyboard files.
+
