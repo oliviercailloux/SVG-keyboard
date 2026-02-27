@@ -10,7 +10,7 @@ It should leverage as much as possible existing standards.
 The file format should permit to draw automatically the key bindings that are associated with each (combination of) key.
 One goal is to help improve the key bindings display that https://unix.stackexchange.com/a/368089/[used to be], or https://gitlab.gnome.org/GNOME/tecla[is], included in Gnome.
 
-The described keyboard behavior is the one that the operating system sees. It is not a goal to represent the internal electronics of the keyboard, such as how “https://en.wikipedia.org/wiki/Fn_key#Technical_details[meta-modifier]” keys change the signals that other keys send to the operating system.
+The described keyboard behavior is the one that the operating system sees. It is not a goal to represent the internal electronics of the keyboard, such as how https://en.wikipedia.org/wiki/Fn_key#Technical_details[“meta-modifier”] keys change the signals that other keys send to the operating system.
 
 == Proposal
 Any SVG file is a SVG keyboard file.
